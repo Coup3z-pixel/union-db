@@ -8,6 +8,7 @@ impl CommandHandler {
         match command_str {
             ".exit" => Ok(Commands::ExitRepl),
             ".sets" => Ok(Commands::GetSets),
+            ".help" => Ok(Commands::Help),
             _ => Err(UnrecognizedCommandError)
 
         }

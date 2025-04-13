@@ -13,6 +13,7 @@ impl fmt::Display for UnrecognizedCommandError {
 }
 
 pub enum Commands {
+    Help,
     GetSets,
     ExitRepl,
 }

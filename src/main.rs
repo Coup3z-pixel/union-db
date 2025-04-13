@@ -2,11 +2,27 @@ use std::io::{stdin,stdout,Write};
 use std::fmt;
 
 pub mod command;
+pub mod statement;
 
 use crate::command::{handler,registry};
+use crate::statement::{compiler,executor};
 
 fn print_prompt() -> () {
     print!("union > ");
+}
+
+fn get_input(s: &mut String) -> () {
+    let _ = stdout().flush();
+
+    stdin().read_line(s).expect("Did not enter a correct string");
+
+    if let Some('\n') = s.chars().next_back() {
+        s.pop();
+    }
+
+    if let Some('\r') = s.chars().next_back() {
+        s.pop();
+    }
 }
 
 fn main() {
@@ -19,17 +35,7 @@ fn main() {
 
         print_prompt();
 
-        let _ = stdout().flush();
-
-        stdin().read_line(&mut s).expect("Did not enter a correct string");
-
-        if let Some('\n')=s.chars().next_back() {
-            s.pop();
-        }
-        if let Some('\r')=s.chars().next_back() {
-            s.pop();
-        }
-
+        get_input(&mut s);
 
         // check for commands with .#### at the front
         if s.chars().nth(0) == Some('.') {
@@ -40,9 +46,13 @@ fn main() {
                     ::CommandHandler
                     ::convert_to_command(s.as_str()
                 )
-            )
+            );
+
+            continue;
         }
 
-        // check for commands for DML
+        // check for commands for Database Language
+        if s.chars().last() == Some(';') {
+        }
     }
 }
