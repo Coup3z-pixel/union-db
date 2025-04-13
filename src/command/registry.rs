@@ -4,13 +4,22 @@ pub struct CommandRegistry {
 }
 
 impl CommandRegistry {
-    
-    pub fn convert_to_command(command_str: &str) -> Result<Commands, UnrecognizedCommandError> {
-        match command_str {
-            ".exit" => Ok(Commands::ExitRepl),
-            ".sets" => Ok(Commands::GetSets),
-            _ => Err(UnrecognizedCommandError)
 
+    fn display_sets() {
+        print!("Sets: ")
+    }
+
+    fn exit_repl() {
+        std::process::exit(0)
+    }
+
+    pub fn execute(command: Result<Commands, UnrecognizedCommandError>) {
+        match command {
+            Ok(Commands::ExitRepl) => CommandRegistry::exit_repl(),
+            Ok(Commands::GetSets) => CommandRegistry::display_sets(),
+            Err(UnrecognizedCommandError) => print!("command not found"),
         }
     }
+    
+    
 }
