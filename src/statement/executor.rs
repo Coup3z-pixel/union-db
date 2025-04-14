@@ -1,5 +1,14 @@
-pub struct StatementRegistry {
+use super::statement::Statement;
+
+pub struct StatementExecutor {
 }
 
-impl StatementRegistry {
+impl StatementExecutor {
+    pub fn new() -> Self {
+        StatementExecutor{}
+    }
+
+    pub fn execute(&self, statement: Statement) {
+        
+    }
 }

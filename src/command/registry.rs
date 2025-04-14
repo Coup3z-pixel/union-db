@@ -5,6 +5,15 @@ pub struct CommandRegistry {
 
 impl CommandRegistry {
 
+    pub fn execute(command: Result<Commands, UnrecognizedCommandError>) {
+        match command {
+            Ok(Commands::ExitRepl) => CommandRegistry::exit_repl(),
+            Ok(Commands::GetSets) => CommandRegistry::display_sets(),
+            Ok(Commands::Help) => CommandRegistry::display_help(),
+            Err(UnrecognizedCommandError) => println!("command not found"),
+        }
+    }
+
     fn display_sets() {
         println!("Sets: ")
     }
@@ -16,15 +25,5 @@ impl CommandRegistry {
     fn display_help() {
         println!("")
     }
-
-    pub fn execute(command: Result<Commands, UnrecognizedCommandError>) {
-        match command {
-            Ok(Commands::ExitRepl) => CommandRegistry::exit_repl(),
-            Ok(Commands::GetSets) => CommandRegistry::display_sets(),
-            Ok(Commands::Help) => CommandRegistry::display_help(),
-            Err(UnrecognizedCommandError) => println!("command not found"),
-        }
-    }
-    
     
 }

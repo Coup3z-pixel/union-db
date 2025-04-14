@@ -1,3 +1,6 @@
 pub mod compiler;
 pub mod executor;
-mod types;
+pub mod types;
+mod operations;
+mod statement;
+mod node;
