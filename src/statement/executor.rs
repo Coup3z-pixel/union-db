@@ -9,6 +9,6 @@ impl StatementExecutor {
     }
 
     pub fn execute(&self, statement: Statement) {
-        
+        statement.print_tree();
     }
 }

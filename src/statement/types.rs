@@ -3,7 +3,8 @@ use std::fmt;
 pub enum OperationType {
     Minus,
     Intersect,
-    Union
+    Union,
+    Placeholder
 }
 
 #[derive(Debug)]
@@ -34,3 +35,22 @@ impl fmt::Display for StatementCompilationError {
         write!(f, "Error compiling statement into a tree") // user-facing output
     }
 }
+
+
+    pub fn convert_symbol_to_type(symbol: &str) -> Result<OperationType, InvalidOperationError> {
+        match symbol {
+            "\\minus" => Ok(OperationType::Minus),
+            "\\union" => Ok(OperationType::Union),
+            "\\inter" => Ok(OperationType::Intersect),
+            _ => Err(InvalidOperationError)
+        }
+    }
+
+    pub fn convert_type_to_symbol(operation_type: &OperationType) -> String {
+        match operation_type {
+            OperationType::Minus => "\\minus".to_string(),
+            OperationType::Union => "\\union".to_string(),
+            OperationType::Intersect => "\\inter".to_string(),
+            OperationType::Placeholder => "\\placeholder".to_string(),
+        }
+    }

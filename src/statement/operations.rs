@@ -1,6 +1,5 @@
-pub mod intersect;
-pub mod minus;
-pub mod union;
+pub mod manipulation;
+pub mod definition;
 
 trait Operation {
     fn operation(&self);
