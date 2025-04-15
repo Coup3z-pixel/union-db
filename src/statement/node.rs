@@ -1,4 +1,4 @@
-use super::types::OperationType;
+use super::operations::OperationType;
 
 pub enum Node {
     Set(String),

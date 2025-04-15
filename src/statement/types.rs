@@ -1,11 +1,7 @@
 use std::fmt;
 
-pub enum OperationType {
-    Minus,
-    Intersect,
-    Union,
-    Placeholder
-}
+use super::operations::OperationType;
+
 
 #[derive(Debug)]
 pub struct InvalidOperationError;
@@ -37,20 +33,20 @@ impl fmt::Display for StatementCompilationError {
 }
 
 
-    pub fn convert_symbol_to_type(symbol: &str) -> Result<OperationType, InvalidOperationError> {
-        match symbol {
-            "\\minus" => Ok(OperationType::Minus),
-            "\\union" => Ok(OperationType::Union),
-            "\\inter" => Ok(OperationType::Intersect),
-            _ => Err(InvalidOperationError)
-        }
+pub fn convert_symbol_to_type(symbol: &str) -> Result<OperationType, InvalidOperationError> {
+    match symbol {
+        "\\minus" => Ok(OperationType::Minus),
+        "\\union" => Ok(OperationType::Union),
+        "\\inter" => Ok(OperationType::Intersect),
+        _ => Err(InvalidOperationError)
     }
+}
 
-    pub fn convert_type_to_symbol(operation_type: &OperationType) -> String {
-        match operation_type {
-            OperationType::Minus => "\\minus".to_string(),
-            OperationType::Union => "\\union".to_string(),
-            OperationType::Intersect => "\\inter".to_string(),
-            OperationType::Placeholder => "\\placeholder".to_string(),
-        }
+pub fn convert_type_to_symbol(operation_type: &OperationType) -> String {
+    match operation_type {
+        OperationType::Minus => "\\minus".to_string(),
+        OperationType::Union => "\\union".to_string(),
+        OperationType::Intersect => "\\inter".to_string(),
+        OperationType::Placeholder => "\\placeholder".to_string(),
     }
+}

@@ -1,4 +1,4 @@
-use super::Operation;
+use crate::statement::operations::Operation;
 
 struct Minus {
 }
