@@ -1,6 +1,6 @@
 use std::fmt;
 
-use super::operations::{manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
+use super::operations::{definition::define::Define, manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
 
 #[derive(Debug)]
 pub struct StatementExecutionError;
@@ -44,9 +44,10 @@ impl fmt::Display for StatementCompilationError {
 
 pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, InvalidOperationError> {
     match symbol {
-        "\\minus" => Ok(Box::new(Minus ())),
-        "\\union" => Ok(Box::new(Union ())),
-        "\\inter" => Ok(Box::new(Intersect ())),
+        "\\m" => Ok(Box::new(Minus ())),
+        "\\u" => Ok(Box::new(Union ())),
+        "\\i" => Ok(Box::new(Intersect ())),
+        "\\c" => Ok(Box::new(Define ())),
         _ => Err(InvalidOperationError)
     }
 }
