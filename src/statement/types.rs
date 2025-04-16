@@ -1,7 +1,16 @@
 use std::fmt;
 
-use super::operations::OperationType;
+use super::operations::{manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
 
+#[derive(Debug)]
+pub struct StatementExecutionError;
+
+// Implement std::fmt::Display for AppError
+impl fmt::Display for StatementExecutionError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "An Error Occurred, Please Try Again!") // user-facing output
+    }
+}
 
 #[derive(Debug)]
 pub struct InvalidOperationError;
@@ -33,20 +42,12 @@ impl fmt::Display for StatementCompilationError {
 }
 
 
-pub fn convert_symbol_to_type(symbol: &str) -> Result<OperationType, InvalidOperationError> {
+pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, InvalidOperationError> {
     match symbol {
-        "\\minus" => Ok(OperationType::Minus),
-        "\\union" => Ok(OperationType::Union),
-        "\\inter" => Ok(OperationType::Intersect),
+        "\\minus" => Ok(Box::new(Minus ())),
+        "\\union" => Ok(Box::new(Union ())),
+        "\\inter" => Ok(Box::new(Intersect ())),
         _ => Err(InvalidOperationError)
     }
 }
 
-pub fn convert_type_to_symbol(operation_type: &OperationType) -> String {
-    match operation_type {
-        OperationType::Minus => "\\minus".to_string(),
-        OperationType::Union => "\\union".to_string(),
-        OperationType::Intersect => "\\inter".to_string(),
-        OperationType::Placeholder => "\\placeholder".to_string(),
-    }
-}

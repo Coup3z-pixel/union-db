@@ -1,6 +1,6 @@
-use super::operations::OperationType;
+use super::operations::Operation;
 
 pub enum Node {
     Set(String),
-    Operation(OperationType, Option<Box<Node>>, Option<Box<Node>>)
+    Operation(Box<dyn Operation>, Option<Box<Node>>, Option<Box<Node>>)
 }

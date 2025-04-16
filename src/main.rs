@@ -3,9 +3,10 @@ use std::fmt;
 
 pub mod command;
 pub mod statement;
+pub mod storage;
 
 use crate::command::{handler::CommandHandler,registry::CommandRegistry};
-use crate::statement::{compiler::StatementCompiler,executor::StatementExecutor};
+use crate::statement::compiler::StatementCompiler;
 
 fn print_prompt() -> () {
     print!("union > ");
@@ -28,7 +29,6 @@ fn get_input(s: &mut String) -> () {
 fn main() {
 
     print!("Union DB Version 0.0.1\n");
-    let database_executor = StatementExecutor::new();
 
     loop {
         
@@ -53,7 +53,7 @@ fn main() {
             );
 
             let _db_result = match compiled_statement_result {
-                Ok(statement) => database_executor.execute(statement),
+                Ok(statement) => statement.execute(),
                 Err(statement::types::StatementCompilationError) => continue,
             };
         }
