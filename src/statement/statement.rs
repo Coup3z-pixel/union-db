@@ -59,7 +59,7 @@ impl Statement {
                         _ => return Err(StatementExecutionError),
                     };
 
-                    return operation.as_ref().calculate(&left_node_result, &right_node_result);
+                    return operation.as_ref().execute(&left_node_result, &right_node_result);
                 },
                 Node::Set(name) => Ok(Node::Set(name.to_string())),
                 _ => Err(StatementExecutionError)
