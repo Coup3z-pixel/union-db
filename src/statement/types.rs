@@ -1,6 +1,6 @@
 use std::fmt;
 
-use super::operations::{definition::define::Define, manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
+use super::operations::{definition::{define::Define, remove::Remove}, manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
 
 #[derive(Debug)]
 pub struct StatementExecutionError;
@@ -48,6 +48,7 @@ pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, Invali
         "\\u" => Ok(Box::new(Union ())),
         "\\i" => Ok(Box::new(Intersect ())),
         "\\c" => Ok(Box::new(Define ())),
+        "\\r" => Ok(Box::new(Remove ())),
         _ => Err(InvalidOperationError)
     }
 }

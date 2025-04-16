@@ -16,7 +16,7 @@ impl Operation for Define {
             _ => return Err(StatementExecutionError),
         };
 
-        return Ok(Node::Set(new_set.set_name.clone()));
+        return Ok(Node::Set(new_set.set_name));
     }
 
     fn format_operation_str(&self, _left_name: &str, right_name: &str) -> String {
