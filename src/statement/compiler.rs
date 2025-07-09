@@ -38,6 +38,13 @@ impl StatementCompiler {
             return Ok(None);
         }
 
+        if tokens.len() == 2 {
+            match Self::parse_term(tokens, 0) {
+                Ok((design_schema, _)) => return Ok(design_schema),
+                Err(ParseTreeError) => return Err(ParseTreeError)
+            };
+        }
+
         // Parse the expression using a recursive descent parser
         let (node, _) = Self::parse_expression_recursive(tokens, 0)?;
         Ok(node)
@@ -111,6 +118,23 @@ impl StatementCompiler {
         // Handle set identifiers
         if !token.starts_with('\\') && token != "(" && token != ")" {
             return Ok((Some(Box::new(Node::Set(token.to_string()))), pos + 1));
+        }
+
+        // database design
+        if token.starts_with('\\') {
+
+            let op_type = match types::convert_symbol_to_type(token) {
+                Ok(operation_type) => operation_type,
+                Err(InvalidOperationError) => {
+                    println!("'{}' is not a valid operation", token);
+                    return Err(ParseTreeError);
+                },
+            };
+
+
+            let new_set_node = Node::Set(tokens[pos].to_string());
+            let design_node = Node::Operation(op_type, None, Some(Box::new(new_set_node)));
+            return Ok((Some(Box::new(design_node)), pos));
         }
         
         // If we get here, we have an unexpected token

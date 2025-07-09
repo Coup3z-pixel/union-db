@@ -47,7 +47,7 @@ pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, Invali
         "\\m" => Ok(Box::new(Minus ())),
         "\\u" => Ok(Box::new(Union ())),
         "\\i" => Ok(Box::new(Intersect ())),
-        "\\c" => Ok(Box::new(Define ())),
+        "\\d" => Ok(Box::new(Define ())),
         "\\r" => Ok(Box::new(Remove ())),
         _ => Err(InvalidOperationError)
     }

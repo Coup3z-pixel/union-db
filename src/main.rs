@@ -1,5 +1,6 @@
 use std::io::{stdin,stdout,Write};
 use std::fmt;
+use std::env;
 
 pub mod command;
 pub mod statement;
@@ -28,7 +29,15 @@ fn get_input(s: &mut String) -> () {
 
 fn main() {
 
+    let args: Vec<String> = env::args().collect();
+
     print!("Union DB Version 0.0.1\n");
+
+    if args.len() == 2 {
+        println!("Generating sets from {}", args[1]);
+        // check if file exists
+        return;
+    }
 
     loop {
         

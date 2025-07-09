@@ -15,7 +15,7 @@ impl Operation for Remove {
     }
 
     fn format_operation_str(&self, _left_name: &str, right_name: &str) -> String {
-        return format!("define_{}", right_name);
+        return format!("remove_{}", right_name);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -23,7 +23,7 @@ impl Operation for Remove {
     }
 
     fn get_name(&self) -> &str {
-        "define"
+        "remove"
     }
 
 }
