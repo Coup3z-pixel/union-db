@@ -1,4 +1,4 @@
-pub mod compiler;
+pub mod interpreter;
 pub mod executor;
 pub mod types;
 mod operations;

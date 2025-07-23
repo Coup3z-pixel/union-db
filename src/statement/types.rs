@@ -1,6 +1,18 @@
 use std::fmt;
 
-use super::operations::{definition::{define::Define, remove::Remove}, manipulation::{intersect::Intersect, minus::Minus, union::Union}, Operation};
+use super::operations::{definition::{define::Define, remove::Remove}, manipulation::{append::Append, intersect::Intersect, minus::Minus, union::Union}, Operation};
+
+pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, InvalidOperationError> {
+    match symbol {
+        "\\m" => Ok(Box::new(Minus ())),
+        "\\u" => Ok(Box::new(Union ())),
+        "\\i" => Ok(Box::new(Intersect ())),
+        "\\d" => Ok(Box::new(Define ())),
+        "\\r" => Ok(Box::new(Remove ())),
+        "\\a" => Ok(Box::new(Append ())),
+        _ => Err(InvalidOperationError)
+    }
+}
 
 #[derive(Debug)]
 pub struct StatementExecutionError;
@@ -40,16 +52,3 @@ impl fmt::Display for StatementCompilationError {
         write!(f, "Error compiling statement into a tree") // user-facing output
     }
 }
-
-
-pub fn convert_symbol_to_type(symbol: &str) -> Result<Box<dyn Operation>, InvalidOperationError> {
-    match symbol {
-        "\\m" => Ok(Box::new(Minus ())),
-        "\\u" => Ok(Box::new(Union ())),
-        "\\i" => Ok(Box::new(Intersect ())),
-        "\\d" => Ok(Box::new(Define ())),
-        "\\r" => Ok(Box::new(Remove ())),
-        _ => Err(InvalidOperationError)
-    }
-}
-

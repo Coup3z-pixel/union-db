@@ -16,4 +16,6 @@ pub enum Commands {
     Help,
     GetSets,
     ExitRepl,
+    Init,
+    Load
 }

@@ -9,6 +9,7 @@ impl CommandHandler {
             ".exit" => Ok(Commands::ExitRepl),
             ".sets" => Ok(Commands::GetSets),
             ".help" => Ok(Commands::Help),
+            ".init" => Ok(Commands::Init),
             _ => Err(UnrecognizedCommandError)
 
         }

@@ -1,13 +1,16 @@
+use crate::storage::model::store::Store;
+
 use super::node::Node;
 use super::types::StatementExecutionError;
 
 pub struct Statement {
-    expression_tree: Option<Box<Node>>
+    expression_tree: Option<Box<Node>>,
+    store: Store
 }
 
 impl Statement {
     pub fn new(head: Option<Box<Node>>) -> Self {
-        Self { expression_tree: head }
+        Self { expression_tree: head, store: Store::new() }
     }
 
     pub fn print_tree(&self) {
@@ -35,6 +38,11 @@ impl Statement {
     pub fn execute(&self) -> Result<Node, StatementExecutionError> {
         return self.execute_helper(self.expression_tree.as_deref());
     } 
+
+    pub fn add_store(&mut self, store: Store) -> &mut Self {
+        self.store = store;
+        self
+    }
 
     fn execute_helper(&self, curr_node: Option<&Node>) -> Result<Node, StatementExecutionError> {
         match curr_node {

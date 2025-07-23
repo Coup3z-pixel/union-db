@@ -1,3 +1,5 @@
+use crate::storage::model::store::Store;
+
 use super::{
     node::Node, 
     statement::Statement, 
@@ -9,10 +11,11 @@ use super::{
     }
 };
 
-pub struct StatementCompiler {
+pub struct StatementInterpreter {
+    pub set_store: Store
 }
 
-impl StatementCompiler {
+impl StatementInterpreter {
     pub fn compile_from_str(statement_str: &str) -> Result<Statement, StatementCompilationError> {
         if !Self::is_valid_statement(statement_str) {
             return Err(StatementCompilationError);
