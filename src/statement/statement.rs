@@ -1,3 +1,4 @@
+use crate::storage::model::set::Set;
 use crate::storage::model::store::Store;
 
 use super::node::Node;
@@ -11,6 +12,10 @@ pub struct Statement {
 impl Statement {
     pub fn new(head: Option<Box<Node>>) -> Self {
         Self { expression_tree: head, store: Store::new() }
+    }
+
+    pub fn retrieve_set_from_store(&mut self, set_name: String) -> Option<&Set> {
+        self.store.get(&set_name)
     }
 
     pub fn print_tree(&self) {
@@ -41,6 +46,11 @@ impl Statement {
 
     pub fn add_store(&mut self, store: Store) -> &mut Self {
         self.store = store;
+        self
+    }
+
+    pub fn add_set_to_store(&mut self, set: Set) -> &mut Self {
+        self.store.add_set(set);
         self
     }
 

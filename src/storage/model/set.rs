@@ -1,11 +1,13 @@
 use roaring::RoaringBitmap;
 use std::fmt;
+use std::fs::File;
 
 /// A named set of 32-bit integers backed by a Roaring Bitmap.
 ///
 /// This struct provides efficient storage and manipulation
 /// of large sets of integers, along with a human-readable
 /// name label for identification.
+#[derive(Clone)]
 pub struct Set {
     /// The name of the set.
     set_name: String,
@@ -15,6 +17,18 @@ pub struct Set {
 }
 
 impl Set {
+
+    pub fn load_set_from_file(_file: &File) -> Self {
+        return Set::load_set_with_bitmap("", &RoaringBitmap::new());
+    }
+
+    pub fn load_set_with_bitmap(set_name: &str, bitmap: &RoaringBitmap) -> Self {
+        Self {
+            set_name: set_name.to_string(),
+            bitmap: bitmap.clone()
+        }
+    }
+
     /// Creates a new empty `Set` with the given name.
     ///
     /// # Arguments

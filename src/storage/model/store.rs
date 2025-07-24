@@ -6,6 +6,10 @@ pub struct Store {
 }
 
 impl Store {
+    pub fn add_set(&mut self, set: Set) {
+        self.sets.insert(set.get_set_name().to_string(), set);
+    }
+
     pub fn new() -> Self {
         Store { sets: HashMap::new() }
     }
